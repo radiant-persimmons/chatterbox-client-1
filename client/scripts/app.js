@@ -1,6 +1,7 @@
 var app = {
   lastCreated: '',
   currentRoom: undefined,
+  // server: 'http://my.domain.com/classes/chatterbox',
   server: 'http://localhost:3000/1/khkyler/classes/chatterbox',
   rooms: {},
   friends: {},

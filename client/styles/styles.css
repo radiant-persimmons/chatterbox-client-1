@@ -36,10 +36,12 @@ h1 {
 }
 
 .success {
-  color: #7DE5DD;
+  background: #9FF7AC;
+  color: #297F39;
 }
 
 .failure {
+  background: #F7A094;
   color: red;
 }
 
