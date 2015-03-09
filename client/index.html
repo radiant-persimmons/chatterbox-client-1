@@ -13,7 +13,7 @@
 
     <!-- your scripts -->
     <script src="env/config.js"></script>
-    <script src="scripts/quotes.js"></script>
+    <!-- // <script src="scripts/quotes.js"></script> -->
     <script src="scripts/app.js"></script>
   </head>
   <body>
@@ -29,6 +29,12 @@
 
       <!-- Room Select -->
       <h3 class="sidebar-title">rooms</h3>
+      <div id="toggle-asc" class="submit button sorter">Sort by ASCENDING</div>
+      <div id="toggle-desc" class="submit button sorter">Sort by DESCENDING</div>
+      <div id="toggle-size" class="submit button sorter">Sort by Number of messages</div>
+      <div id="toggle-one" class="submit button sorter">Get the Third Message</div>
+
+
       <select id="roomSelect">
         <option class="uppercase">Select Room</option>
         <option>Global</option>

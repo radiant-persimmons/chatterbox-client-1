@@ -1,9 +1,10 @@
 var app = {
-  lastCreated: '2015-02-17T00:50:32.494Z',
+  lastCreated: '',
   currentRoom: undefined,
-  server: 'https://api.parse.com/1/classes/chatterbox',
+  server: 'http://localhost:3000/1/khkyler/classes/chatterbox',
   rooms: {},
   friends: {},
+  sortBy: '',
 
   init: function() {
     var context = this;
@@ -38,6 +39,13 @@ var app = {
         $(this).removeClass('enemy').addClass('friend');
       }
     });
+    $(document).on('click', '#toggle-asc', function(){context.sortBy = 'createdAt=ASC'});
+    $(document).on('click', '#toggle-desc', function(){context.sortBy = 'createdAt=DESC'});
+    $(document).on('click', '#toggle-size', function(){context.sortBy = 'size=5'});
+    $(document).on('click', '#toggle-one', function(){context.sortBy = 'id=3'});
+
+
+
   },
 
   cleanData: function(unsafe) {
@@ -48,7 +56,7 @@ var app = {
   displayMessages: function(messages) {
     var context = this;
     var $messageList = $('#chats');
-
+    this.clearMessages();
     // iterate through message array (containing message objects)
     for (var i = 0; i < messages.length; i++) {
       var friendClass = 'enemy';
@@ -105,18 +113,16 @@ var app = {
       _.extend(where, {roomname: context.currentRoom});
     }
 
-    var data = {
-      order: '-createdAt',
-      where: where
-    };
-
+    var data = this.sortBy;
     $.ajax({
       url: context.server,
       type: 'GET',
       data: data,
       success: function(response) {
-        var messages = response.results;
-
+        var messages = response;
+        if (!Array.isArray(messages)){
+          messages = [response];
+        }
         if (messages[0] !== undefined) {
           context.lastCreated = messages[0].createdAt; // get most up-to-date timestamp
         }
@@ -131,7 +137,6 @@ var app = {
 
   send: function(message) {
     var context = this;
-    console.log("Sent!");
 
     var defaults = {
       username : $('#user').val(),
@@ -139,7 +144,6 @@ var app = {
       roomname: $('#room').val()
     };
 
-    console.log(typeof message);
     var message = message || defaults;
 
     $.ajax({
@@ -178,7 +182,3 @@ var app = {
 $(document).ready(function(){
   app.init();
 });
-
-
-
-
